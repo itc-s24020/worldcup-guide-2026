@@ -1,0 +1,86 @@
+import { getCountryDetail, getPlayers } from "@/lib/microcms";
+import type { Country, Player } from "@/lib/microcms";
+// import Link from "next/link"; // PlayerCard に移動したため不要
+import styles from "./page.module.css";
+import { AppImage } from "@/app/components/AppImage";
+import React from "react"; // React.Node のために必要
+import { RichHtmlContent } from "@/app/components/RichHtmlContent";
+import { Breadcrumbs, BreadcrumbItem } from "@/app/components/Breadcrumbs";
+// ★ 修正: PlayerCard 専用のCSSをインポート
+import playerCardStyles from "@/app/components/PlayerCard.module.css";
+// ★ 修正: PlayerCard コンポーネントをインポート
+import { PlayerCard } from "@/app/components/PlayerCard";
+
+// ===================================================================
+// ページコンポーネント
+// ===================================================================
+type Props = {
+  // ★ 修正: params が Promise である可能性に対応
+  params: { id: string } | Promise<{ id: string }>;
+};
+
+export default async function CountryDetailPage(props: Props) {
+  // ★ 修正: props.params を await して Promise を解決
+  const params = await props.params;
+  const country: Country = await getCountryDetail(params.id);
+
+  const { contents: players } = await getPlayers({
+    limit: 50,
+    filters: `country[equals]${country.id}`,
+    depth: 0,
+  });
+
+  return (
+    <div>
+      <Breadcrumbs>
+        <BreadcrumbItem href="/">ホーム</BreadcrumbItem>
+        <BreadcrumbItem isCurrent={true}>{country.name}</BreadcrumbItem>
+      </Breadcrumbs>
+
+      <div className={styles.heroContainer}>
+        <AppImage
+          src={country.team_photo?.url || ""}
+          alt={`${country.name} チーム`}
+          width={1200}
+          height={630}
+          className={styles.heroImage}
+        />
+        <div className={styles.heroOverlay}>
+          <AppImage
+            src={country.flag?.url || ""}
+            alt={`${country.name} 国旗`}
+            width={120}
+            height={80} // 120 * (2/3)
+            className={styles.heroFlag}
+          />
+          <h1 className={styles.heroTitle}>{country.name}</h1>
+          <span className={styles.heroRank}>
+            FIFAランク: {country.fifa_rank}位
+          </span>
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>国の詳細</h3>
+        {/* RichHtmlContent は globals.css の .prose-custom でスタイリングされる */}
+        <RichHtmlContent htmlContent={country.description} />
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>注目選手</h3>
+        {players.length > 0 ? (
+          // ★ 修正: PlayerCard 用のCSSモジュールからグリッドスタイルを適用
+          <div className={playerCardStyles.playerGrid}>
+            {players.map((player: Player) => (
+              <PlayerCard key={player.id} player={player} />
+            ))}
+          </div>
+        ) : (
+          <p className={styles.noDataText}>
+            この国の注目選手はまだ登録されていません。
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,41 @@
+/* パンくずリスト */
+.breadcrumbsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  padding: 0.75rem 1rem;
+  background-color: rgba(128, 128, 128, 0.05);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbItem:not(:last-child)::after {
+  content: ">";
+  margin: 0 0.5rem;
+  color: var(--foreground);
+  opacity: 0.5;
+}
+
+.breadcrumbItem a {
+  color: var(--foreground);
+  opacity: 0.7;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.breadcrumbItem a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.breadcrumbItem span {
+  opacity: 1;
+  font-weight: 500;
+}

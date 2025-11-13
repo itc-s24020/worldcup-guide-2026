@@ -1,0 +1,112 @@
+.playerDetailContainer {
+  background-color: var(--background-card);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  overflow: hidden;
+}
+
+.layoutContainer {
+  display: block;
+}
+@media (min-width: 768px) {
+  .layoutContainer {
+    display: flex;
+  }
+}
+
+.photoContainer {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .photoContainer {
+    width: 33.333333%;
+    padding: 2rem;
+  }
+}
+
+.playerPhoto {
+  width: 12rem; /* 192px */
+  height: 12rem; /* 192px */
+  border-radius: 50%;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  border: 8px solid var(--background);
+  object-fit: cover;
+  background-color: var(--border-color);
+}
+@media (min-width: 768px) {
+  .playerPhoto {
+    width: 14rem; /* 224px */
+    height: 14rem; /* 224px */
+  }
+}
+
+.infoContainer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+@media (min-width: 768px) {
+  .infoContainer {
+    width: 66.666667%;
+    padding: 2rem;
+    border-top: none;
+    border-left: 1px solid var(--border-color);
+  }
+}
+
+.playerName {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 768px) {
+  .playerName {
+    font-size: 2.25rem; /* 36px */
+  }
+}
+
+.countryLink {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.875rem; /* 14px */
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 1rem;
+}
+.countryLink:hover {
+  background-color: var(--primary-color-light);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 1.125rem; /* 18px */
+  margin-bottom: 1.5rem;
+}
+
+.statLabel {
+  color: var(--foreground-muted);
+  display: block;
+  font-size: 0.875rem; /* 14px */
+}
+
+.statValue {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.sectionTitle {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
