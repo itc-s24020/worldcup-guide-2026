@@ -69,7 +69,7 @@ export default async function PlayerDetailPage(props: Props) {
                 )}
               </div>
 
-              <h3 className={styles.sectionTitle}>選手紹介</h3>
+              <h3 className={styles.sectionTitle}>選手紹介I</h3>
               <RichHtmlContent htmlContent={player.description} />
             </div>
           </div>
