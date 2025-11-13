@@ -1,26 +1,18 @@
 import { getCountryDetail, getPlayers } from "@/lib/microcms";
 import type { Country, Player } from "@/lib/microcms";
-// import Link from "next/link"; // PlayerCard に移動したため不要
 import styles from "./page.module.css";
 import { AppImage } from "@/app/components/AppImage";
-import React from "react"; // React.Node のために必要
+import React from "react";
 import { RichHtmlContent } from "@/app/components/RichHtmlContent";
 import { Breadcrumbs, BreadcrumbItem } from "@/app/components/Breadcrumbs";
-// ★ 修正: PlayerCard 専用のCSSをインポート
 import playerCardStyles from "@/app/components/PlayerCard.module.css";
-// ★ 修正: PlayerCard コンポーネントをインポート
 import { PlayerCard } from "@/app/components/PlayerCard";
 
-// ===================================================================
-// ページコンポーネント
-// ===================================================================
 type Props = {
-  // ★ 修正: params が Promise である可能性に対応
-  params: { id: string } | Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 };
 
 export default async function CountryDetailPage(props: Props) {
-  // ★ 修正: props.params を await して Promise を解決
   const params = await props.params;
   const country: Country = await getCountryDetail(params.id);
 
@@ -50,7 +42,7 @@ export default async function CountryDetailPage(props: Props) {
             src={country.flag?.url || ""}
             alt={`${country.name} 国旗`}
             width={120}
-            height={80} // 120 * (2/3)
+            height={80}
             className={styles.heroFlag}
           />
           <h1 className={styles.heroTitle}>{country.name}</h1>
@@ -62,14 +54,12 @@ export default async function CountryDetailPage(props: Props) {
 
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>国の詳細</h3>
-        {/* RichHtmlContent は globals.css の .prose-custom でスタイリングされる */}
         <RichHtmlContent htmlContent={country.description} />
       </div>
 
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>注目選手</h3>
         {players.length > 0 ? (
-          // ★ 修正: PlayerCard 用のCSSモジュールからグリッドスタイルを適用
           <div className={playerCardStyles.playerGrid}>
             {players.map((player: Player) => (
               <PlayerCard key={player.id} player={player} />
