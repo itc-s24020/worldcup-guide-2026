@@ -1,75 +1,82 @@
-import { getCountryDetail, getPlayers } from "@/lib/microcms";
-import type { Country, Player } from "@/lib/microcms";
+import { getPlayerDetail } from "@/lib/microcms";
+import type { Player } from "@/lib/microcms";
+import Link from "next/link";
 import styles from "./page.module.css";
+import countryStyles from "@/app/countries/[id]/page.module.css";
 import { AppImage } from "@/app/components/AppImage";
 import React from "react";
 import { RichHtmlContent } from "@/app/components/RichHtmlContent";
 import { Breadcrumbs, BreadcrumbItem } from "@/app/components/Breadcrumbs";
-import playerCardStyles from "@/app/components/PlayerCard.module.css";
-import { PlayerCard } from "@/app/components/PlayerCard";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-export default async function CountryDetailPage(props: Props) {
+export default async function PlayerDetailPage(props: Props) {
   const params = await props.params;
-  const country: Country = await getCountryDetail(params.id);
+  const player: Player = await getPlayerDetail(params.id, { depth: 1 });
 
-  const { contents: players } = await getPlayers({
-    limit: 50,
-    filters: `country[equals]${country.id}`,
-    depth: 0,
-  });
+  // 国データが取得できなかった場合のフォールバック
+  const countryName = player.country?.name || "不明な国";
+  const countryId = player.country?.id;
 
   return (
     <div>
       <Breadcrumbs>
         <BreadcrumbItem href="/">ホーム</BreadcrumbItem>
-        <BreadcrumbItem isCurrent={true}>{country.name}</BreadcrumbItem>
+        {countryId ? (
+          <BreadcrumbItem href={`/countries/${countryId}`}>
+            {countryName}
+          </BreadcrumbItem>
+        ) : (
+          <BreadcrumbItem>{countryName}</BreadcrumbItem>
+        )}
+        <BreadcrumbItem isCurrent={true}>{player.name}</BreadcrumbItem>
       </Breadcrumbs>
 
-      <div className={styles.heroContainer}>
-        <AppImage
-          src={country.team_photo?.url || ""}
-          alt={`${country.name} チーム`}
-          width={1200}
-          height={630}
-          className={styles.heroImage}
-        />
-        <div className={styles.heroOverlay}>
-          <AppImage
-            src={country.flag?.url || ""}
-            alt={`${country.name} 国旗`}
-            width={120}
-            height={80}
-            className={styles.heroFlag}
-          />
-          <h1 className={styles.heroTitle}>{country.name}</h1>
-          <span className={styles.heroRank}>
-            FIFAランク: {country.fifa_rank}位
-          </span>
-        </div>
-      </div>
+      <div className={styles.playerDetailContainer}>
+        <div className={countryStyles.section}>
+          <div className={styles.layoutContainer}>
+            {/* 選手写真 */}
+            <div className={styles.photoContainer}>
+              <AppImage
+                src={player.photo?.url || ""}
+                alt={`${player.name} 選手`}
+                width={224}
+                height={224}
+                className={styles.playerPhoto}
+              />
+            </div>
 
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>国の詳細</h3>
-        <RichHtmlContent htmlContent={country.description} />
-      </div>
+            {/* 選手情報 */}
+            <div className={styles.infoContainer}>
+              <span className={styles.playerPosition}>{player.position}</span>
+              <h1 className={styles.playerName}>{player.name}</h1>
 
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>注目選手</h3>
-        {players.length > 0 ? (
-          <div className={playerCardStyles.playerGrid}>
-            {players.map((player: Player) => (
-              <PlayerCard key={player.id} player={player} />
-            ))}
+              <div className={styles.infoRow}>
+                <strong>所属クラブ:</strong>
+                <span>{player.club}</span>
+              </div>
+
+              <div className={styles.infoRow}>
+                <strong>所属国:</strong>
+                {countryId ? (
+                  <Link
+                    href={`/countries/${countryId}`}
+                    className={styles.countryLink}
+                  >
+                    {countryName}
+                  </Link>
+                ) : (
+                  <span>{countryName}</span>
+                )}
+              </div>
+
+              <h3 className={styles.sectionTitle}>選手紹介</h3>
+              <RichHtmlContent htmlContent={player.description} />
+            </div>
           </div>
-        ) : (
-          <p className={styles.noDataText}>
-            この国の注目選手はまだ登録されていません。
-          </p>
-        )}
+        </div>
       </div>
     </div>
   );
