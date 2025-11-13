@@ -1,44 +1,59 @@
-// ★ 必須: クライアントコンポーネントとして指定
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
   src?: string;
   alt: string;
   className: string;
-  placeholderText?: string; // プレースホルダーのテキストを動的に
+  placeholderText?: string;
+  width?: number;
+  height?: number;
 };
 
 /**
- * フォールバック機能付きの画像コンポーネント (クライアント)
+ * Next.js Image を使用した最適化された画像コンポーネント
  */
-export function AppImage({ src, alt, className, placeholderText }: Props) {
-  // placehold.co のURLを生成
+export function AppImage({
+  src,
+  alt,
+  className,
+  placeholderText,
+  width = 400,
+  height = 300,
+}: Props) {
+  const [imageSrc, setImageSrc] = useState(src || "");
+  const [hasError, setHasError] = useState(false);
+
+  // プレースホルダー画像 URL
   const getPlaceholderUrl = () => {
     const text = encodeURIComponent(placeholderText || alt);
-    // クラス名からサイズを推定しようと試みる (簡易的)
-    // 実際には width/height をpropsで渡すのが最善です
-    let size = "400x300";
-    if (className.includes("playerPhoto")) size = "200x200";
-    if (className.includes("playerImage")) size = "80x80";
-
+    const size = `${width}x${height}`;
     return `https://placehold.co/${size}/1a1a1a/888888?text=${text}`;
   };
 
-  const [imageSrc, setImageSrc] = useState(src || getPlaceholderUrl());
-
-  // onError イベントハンドラ
+  // エラー時のハンドラー
   const handleError = () => {
-    setImageSrc(getPlaceholderUrl());
+    if (!hasError) {
+      setHasError(true);
+      setImageSrc(getPlaceholderUrl());
+    }
   };
 
+  // 実際の画像 URL または プレースホルダー
+  const displaySrc = imageSrc || getPlaceholderUrl();
+
   return (
-    <img
-      src={imageSrc}
+    <Image
+      src={displaySrc}
       alt={alt}
       className={className}
-      onError={handleError} // クライアントコンポーネントなのでOK
+      width={width}
+      height={height}
+      onError={handleError}
+      priority={false}
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
     />
   );
 }

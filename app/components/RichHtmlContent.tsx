@@ -1,22 +1,40 @@
-"use client"; // ★ クライアントコンポーネントとしてマーク
+"use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
 
-/**
- * microCMSのリッチエディタHTMLを安全に描画するクライアントコンポーネント
- */
-export function RichHtmlContent({
-  htmlContent,
-}: {
+type Props = {
   htmlContent: string | undefined | null;
-}) {
-  // htmlContent が null や undefined の場合、空のdivを描画する
-  const content = htmlContent || "";
+  className?: string;
+};
+
+export function RichHtmlContent({ htmlContent, className = "" }: Props) {
+  const [decodedHtml, setDecodedHtml] = useState<string>("");
+
+  useEffect(() => {
+    if (!htmlContent) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDecodedHtml("");
+      return;
+    }
+
+    const decodeHtml = (html: string): string => {
+      const textarea = document.createElement("textarea");
+      textarea.innerHTML = html;
+      return textarea.value;
+    };
+
+    setDecodedHtml(decodeHtml(htmlContent));
+  }, [htmlContent]);
+
+  if (!decodedHtml) {
+    return null;
+  }
 
   return (
     <div
-      className="prose-custom"
-      dangerouslySetInnerHTML={{ __html: content }}
+      className={`prose-custom ${className}`}
+      dangerouslySetInnerHTML={{ __html: decodedHtml }}
+      suppressHydrationWarning
     />
   );
 }

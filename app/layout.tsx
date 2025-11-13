@@ -18,7 +18,7 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.title}>
-          W杯注目国・選手名鑑
+          {/* タイトルテキストを削除 */}
         </Link>
       </div>
     </header>
