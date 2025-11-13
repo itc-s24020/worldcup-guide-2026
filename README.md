@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# W杯注目国・選手名鑑サイト
 
-## Getting Started
+サッカーW杯の注目国と注目選手を紹介するWebアプリケーションです。Next.jsとmicroCMSを使用し、Vercelにデプロイされます。
 
-First, run the development server:
+## 機能仕様
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+本アプリケーションは、主に以下のページ（ルート）で構成されます。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. トップページ (注目国一覧)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **パス:** `/`
+* **役割:** Webサイトの入り口として、microCMSに登録されている「注目国」をすべて一覧表示します。
+* **主な機能:**
+    * microCMSの `countries` APIから全注目国のデータを取得します。
+    * 各国について「国旗」「国名」「FIFAランク」をカード形式などで表示します。
+    * 各国のカードをクリックすると、該当する「国別詳細ページ」に遷移します。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. 国別詳細ページ
 
-## Learn More
+* **パス:** `/countries/[id]` (例: `/countries/france`)
+* **役割:** 特定の国の詳細情報と、その国に関連する注目選手を表示します。
+* **主な機能:**
+    * **国情報:**
+        * microCMSの `countries` APIから、指定されたIDの国データを取得します。
+        * 「国名」「チーム写真」「国の詳細（`description`のリッチエディタ内容）」を表示します。
+    * **関連選手一覧:**
+        * microCMSの `players` APIに対し、現在の国（`country`フィールド）を参照している選手をフィルタリング検索します。
+        * 取得した選手リストを「選手写真」「選手名」「所属クラブ」と共に一覧表示します。
+        * 各選手をクリックすると、該当する「選手詳細ページ」に遷移します。
 
-To learn more about Next.js, take a look at the following resources:
+### 3. 選手詳細ページ
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **パス:** `/players/[id]` (例: `/players/mbappe`)
+* **役割:** 特定の選手個人の詳細情報を表示します。
+* **主な機能:**
+    * microCMSの `players` APIから、指定されたIDの選手データを取得します。
+    * 「選手写真」「選手名」「ポジション」「所属クラブ」「選手の紹介文」を表示します。
+    * 選手が所属する「所属国」へのリンク（国別詳細ページへのリンク）を表示します。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 使用技術
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **フレームワーク:** Next.js (App Router)
+* **言語:** TypeScript
+* **リンター:** ESLint
+* **スタイリング:** CSS Modules, `globals.css`
+* **データ管理 (Headless CMS):** microCMS
+* **ソース管理:** GitHub
+* **デプロイ:** Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## セットアップと実行方法 (ローカル)
+
+1.  **リポジトリのクローン:**
+    ```bash
+    git clone [リポジトリURL]
+    cd [プロジェクト名]
+    ```
+
+2.  **依存関係のインストール:**
+    ```bash
+    npm install
+    # または
+    # yarn install
+    ```
+
+3.  **.env.local ファイルの作成:**
+    プロジェクトルートに `.env.local` ファイルを作成し、microCMSのAPIキーとサービスドメインを設定します。
+
+    ```.env
+    MICROCMS_SERVICE_DOMAIN=your-service-domain
+    MICROCMS_API_KEY=your-api-key
+    ```
+
+4.  **開発サーバーの起動:**
+    ```bash
+    npm run dev
+    # または
+    # yarn dev
+    ```
+
+5.  ブラウザで `http://localhost:3000` を開きます。
