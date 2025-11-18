@@ -2,7 +2,6 @@
 const nextConfig = {
   // 画像最適化設定
   images: {
-    // microCMSとプレースホルダーのドメイン許可
     remotePatterns: [
       {
         protocol: "https",
@@ -18,23 +17,43 @@ const nextConfig = {
       },
     ],
 
-    // 高品質フォーマット - WebP を優先
-    formats: ["image/avif", "image/webp"],
+    // 高品質フォーマット - WebP を優先（高速化）
+    formats: ["image/webp"],
 
-    // デバイス別サイズ最適化 - 超高解像度対応
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    // デバイス別サイズ最適化
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
 
     // 画像サイズ最適化
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 
-    // 品質レベル設定 - 最高品質対応
-    qualities: [75, 95, 100],
+    // 品質レベル設定（バランス重視）
+    qualities: [75, 85, 95],
 
-    // 1年間のキャッシュ（静的ファイル向け）
+    // キャッシュ設定（1年）
     minimumCacheTTL: 60 * 60 * 24 * 365,
 
     // Vercelの最適化を有効
     unoptimized: false,
+  },
+
+  // ★ 高速化設定
+  compress: true,
+  swcMinify: true,
+  poweredByHeader: false,
+
+  // React 最適化
+  reactStrictMode: true,
+
+  // キャッシュ設定
+  onDemandEntries: {
+    maxInactiveAge: 60 * 1000,
+    pagesBufferLength: 5,
+  },
+
+  // ビルド最適化
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ["lodash-es", "date-fns"],
   },
 };
 

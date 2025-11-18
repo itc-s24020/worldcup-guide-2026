@@ -1,270 +1,218 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
 /* ============ microCMS リッチエディタ用スタイル ============ */
 .prose-custom {
   color: var(--foreground);
-  line-height: 1.6;
+  line-height: 1.8;
+  font-size: 1.05rem;
 }
 
-/* 段落 */
 .prose-custom p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1.25em;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.5em;
   margin-top: 0;
+  letter-spacing: 0.3px;
 }
 
-/* 見出し */
 .prose-custom h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-top: 2em;
+  margin-bottom: 0.8em;
   color: var(--foreground);
+  letter-spacing: -0.5px;
 }
 
 .prose-custom h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
+  margin-top: 1.8em;
+  margin-bottom: 0.8em;
   color: var(--foreground);
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+  padding-bottom: 0.5em;
 }
 
 .prose-custom h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin-top: 1.5em;
   margin-bottom: 0.75em;
-  padding-bottom: 0.25em;
-  border-bottom: 2px solid rgba(128, 128, 128, 0.2);
+  padding-bottom: 0.3em;
+  border-bottom: 3px solid rgba(102, 126, 234, 0.3);
   color: var(--foreground);
 }
 
-.prose-custom h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-top: 1.25em;
-  margin-bottom: 0.5em;
-  color: var(--foreground);
-}
-
+.prose-custom h4,
 .prose-custom h5,
 .prose-custom h6 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  font-weight: 700;
   color: var(--foreground);
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
 }
 
-/* リスト */
-.prose-custom ul {
-  list-style-type: disc;
-  list-style-position: inside;
-  margin-bottom: 1.25em;
-  padding-left: 1.5em;
-}
-
+.prose-custom ul,
 .prose-custom ol {
-  list-style-type: decimal;
   list-style-position: inside;
-  margin-bottom: 1.25em;
-  padding-left: 1.5em;
+  margin-bottom: 1.5em;
+  padding-left: 2em;
 }
 
 .prose-custom li {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
   padding-left: 0.5em;
+  line-height: 1.7;
 }
 
-.prose-custom ul ul,
-.prose-custom ol ol,
-.prose-custom ul ol,
-.prose-custom ol ul {
-  margin-left: 1.5em;
-  margin-bottom: 0.5em;
-}
-
-/* 強調 */
 .prose-custom strong,
 .prose-custom b {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--foreground);
 }
 
 .prose-custom em,
 .prose-custom i {
   font-style: italic;
+  opacity: 0.9;
 }
 
-/* リンク */
 .prose-custom a {
-  color: #0066cc;
+  color: #667eea;
   text-decoration: underline;
-  transition: color 0.2s ease;
-  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 .prose-custom a:hover {
-  color: #0052a3;
+  color: #764ba2;
+  text-decoration-color: #764ba2;
 }
 
 @media (prefers-color-scheme: dark) {
   .prose-custom a {
-    color: #66b3ff;
+    color: #99b3ff;
   }
 
   .prose-custom a:hover {
-    color: #99ccff;
+    color: #d4b3ff;
   }
 }
 
-/* ブロック引用 */
 .prose-custom blockquote {
-  border-left: 4px solid rgba(128, 128, 128, 0.3);
-  padding-left: 1em;
+  border-left: 5px solid #667eea;
+  padding-left: 1.5em;
   padding-right: 1em;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 1.25em;
-  color: var(--foreground);
-  opacity: 0.85;
+  margin-bottom: 1.5em;
+  opacity: 0.9;
   font-style: italic;
+  background: rgba(102, 126, 234, 0.05);
+  padding: 1em 0 1em 1.5em;
+  border-radius: 8px;
 }
 
-/* コード */
 .prose-custom code {
-  background-color: rgba(128, 128, 128, 0.1);
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: "Courier New", "Courier", monospace;
-  font-size: 0.9em;
-  color: var(--foreground);
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.05) 100%
+  );
+  padding: 0.3em 0.6em;
+  border-radius: 6px;
+  font-family: "Monaco", "Courier New", monospace;
+  font-size: 0.95em;
+  font-weight: 500;
+  color: #667eea;
 }
 
 .prose-custom pre {
-  background-color: rgba(128, 128, 128, 0.1);
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  padding: 1em;
-  border-radius: 4px;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.08) 0%,
+    rgba(118, 75, 162, 0.04) 100%
+  );
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
+  padding: 1.5em;
   overflow-x: auto;
-  margin-bottom: 1.25em;
-  line-height: 1.4;
+  margin-bottom: 1.5em;
+  line-height: 1.5;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
 }
 
 .prose-custom pre code {
-  background-color: transparent;
+  background: transparent;
   padding: 0;
-  font-size: 0.9em;
+  color: var(--foreground);
+  font-weight: 500;
 }
 
-/* 画像 */
 .prose-custom img {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 12px;
   margin: 1.5em 0;
   display: block;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-/* テーブル */
 .prose-custom table {
   border-collapse: collapse;
   width: 100%;
-  margin-bottom: 1.25em;
-  font-size: 0.95em;
+  margin-bottom: 1.5em;
+  font-size: 1em;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.prose-custom th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  padding: 1em 0.75em;
+  text-align: left;
+}
+
+.prose-custom td {
+  border: 1px solid rgba(102, 126, 234, 0.15);
+  padding: 0.9em 0.75em;
 }
 
 .prose-custom th,
 .prose-custom td {
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  padding: 0.75em;
-  text-align: left;
-}
-
-.prose-custom th {
-  background-color: rgba(128, 128, 128, 0.1);
-  font-weight: 600;
-  color: var(--foreground);
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .prose-custom tr:nth-child(even) {
-  background-color: rgba(128, 128, 128, 0.05);
+  background: rgba(102, 126, 234, 0.05);
 }
 
-/* 区切り線 */
+.prose-custom tr:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
 .prose-custom hr {
   border: none;
-  border-top: 1px solid rgba(128, 128, 128, 0.2);
+  border-top: 2px solid rgba(102, 126, 234, 0.25);
   margin: 2em 0;
+  border-radius: 1px;
 }
 
-/* その他の要素 */
 .prose-custom del {
   text-decoration: line-through;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .prose-custom mark {
-  background-color: rgba(255, 255, 0, 0.3);
+  background: linear-gradient(
+    120deg,
+    rgba(102, 126, 234, 0.2) 0%,
+    rgba(118, 75, 162, 0.2) 100%
+  );
   padding: 0.2em 0.4em;
-  border-radius: 2px;
-}
-
-.prose-custom sup,
-.prose-custom sub {
-  font-size: 0.8em;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-.prose-custom sup {
-  top: -0.5em;
-}
-
-.prose-custom sub {
-  bottom: -0.25em;
+  border-radius: 4px;
 }

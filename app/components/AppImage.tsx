@@ -16,8 +16,7 @@ type Props = {
 };
 
 /**
- * Next.js Image を使用した最適化された画像コンポーネント
- * 高品質表示とエラーハンドリングに対応
+ * Next.js Image を使用した高速最適化画像コンポーネント
  */
 export function AppImage({
   src,
@@ -27,7 +26,7 @@ export function AppImage({
   width = 400,
   height = 300,
   priority = false,
-  quality = 95,
+  quality = 85,
   isHero = false,
 }: Props) {
   const [imageSrc, setImageSrc] = useState(src || "");
@@ -51,22 +50,21 @@ export function AppImage({
   // 実際の画像 URL または プレースホルダー
   const displaySrc = imageSrc || getPlaceholderUrl();
 
-  // ヒーロー画像は最高品質、それ以外は95
-  const imageQuality = isHero ? 100 : quality;
+  // ★ ヒーロー画像は高品質、それ以外は85（バランス重視）
+  const imageQuality = isHero ? 90 : quality;
 
-  // ★ microCMS 画像 URL を超高解像度化
+  // ★ microCMS 画像 URL を最適化（高速化）
   let optimizedSrc = displaySrc;
 
   if (displaySrc.includes("microcms-assets.io")) {
-    // ヒーロー画像用: 最高品質設定
+    // ヒーロー画像用: 高速化＋品質バランス
     if (isHero) {
-      optimizedSrc = `${displaySrc}?auto=compress&fit=max&w=2560&h=1440&q=100&sharp=3&fm=webp`;
+      optimizedSrc = `${displaySrc}?auto=compress&fit=max&w=1920&h=1080&q=85&fm=webp`;
     } else {
-      // 通常画像用
-      optimizedSrc = `${displaySrc}?auto=compress&fit=max&w=${Math.max(
-        width || 400,
-        1920
-      )}&h=${Math.max(height || 300, 1080)}&q=95&sharp=2&fm=webp`;
+      // 通常画像用: 最適化重視
+      const optimalWidth = Math.min(width || 400, 1200);
+      const optimalHeight = Math.min(height || 300, 800);
+      optimizedSrc = `${displaySrc}?auto=compress&fit=max&w=${optimalWidth}&h=${optimalHeight}&q=80&fm=webp`;
     }
   }
 
@@ -91,6 +89,7 @@ export function AppImage({
       }}
       placeholder="blur"
       blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8VAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAA8A/9k="
+      loading={priority ? "eager" : "lazy"}
     />
   );
 }

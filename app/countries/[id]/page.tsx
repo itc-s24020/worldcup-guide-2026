@@ -14,13 +14,16 @@ type Props = {
 
 export default async function CountryDetailPage(props: Props) {
   const params = await props.params;
-  const country: Country = await getCountryDetail(params.id);
 
-  const { contents: players } = await getPlayers({
-    limit: 50,
-    filters: `country[equals]${country.id}`,
-    depth: 0,
-  });
+  // ★ 並列データ取得で高速化
+  const [country, { contents: players }] = await Promise.all([
+    getCountryDetail(params.id),
+    getPlayers({
+      limit: 50,
+      filters: `country[equals]${params.id}`,
+      depth: 0,
+    }),
+  ]);
 
   return (
     <div>
@@ -29,9 +32,8 @@ export default async function CountryDetailPage(props: Props) {
         <BreadcrumbItem isCurrent={true}>{country.name}</BreadcrumbItem>
       </Breadcrumbs>
 
-      {/* ★ ヒーロー: 国旗とテキストが左下に固定 */}
+      {/* ★ ヒーロー: 背景画像を高速読み込み */}
       <div className={styles.heroContainer}>
-        {/* 背景画像 - 高品質設定 */}
         <div className={styles.heroImage}>
           <AppImage
             src={country.team_photo?.url || ""}
@@ -40,17 +42,14 @@ export default async function CountryDetailPage(props: Props) {
             height={1080}
             className={styles.heroImageTag}
             priority={true}
-            quality={100}
+            quality={90}
             isHero={true}
           />
         </div>
 
-        {/* グラデーション背景 */}
         <div className={styles.heroOverlay}></div>
 
-        {/* コンテンツ: 国旗 + テキスト (左下に固定) */}
         <div className={styles.heroContent}>
-          {/* 国旗 */}
           <AppImage
             src={country.flag?.url || ""}
             alt={`${country.name} 国旗`}
@@ -58,10 +57,9 @@ export default async function CountryDetailPage(props: Props) {
             height={75}
             className={styles.heroFlag}
             priority={true}
-            quality={95}
+            quality={85}
           />
 
-          {/* テキスト: 国名 + FIFAランク */}
           <div className={styles.heroInfo}>
             <h1 className={styles.heroTitle}>{country.name}</h1>
             <span className={styles.heroRank}>

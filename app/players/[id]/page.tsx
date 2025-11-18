@@ -55,19 +55,7 @@ export default async function PlayerDetailPage(props: Props) {
                 <span>{player.club}</span>
               </div>
 
-              <div className={styles.infoRow}>
-                <strong>所属国:</strong>
-                {countryId ? (
-                  <Link
-                    href={`/countries/${countryId}`}
-                    className={styles.countryLink}
-                  >
-                    {countryName}
-                  </Link>
-                ) : (
-                  <span>{countryName}</span>
-                )}
-              </div>
+              {/* ★ 所属国を削除（以下のセクション全体を削除） */}
 
               <h3 className={styles.sectionTitle}>選手紹介</h3>
               <RichHtmlContent htmlContent={player.description} />

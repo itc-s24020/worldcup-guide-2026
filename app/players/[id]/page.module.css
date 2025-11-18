@@ -1,112 +1,276 @@
 .playerDetailContainer {
-  background-color: var(--background-card);
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px var(--shadow-color);
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border: 1px solid rgba(200, 200, 200, 0.15);
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), 0 16px 48px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.playerDetailContainer:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05), 0 24px 64px rgba(0, 0, 0, 0.12);
+  border-color: rgba(102, 126, 234, 0.2);
 }
 
 .layoutContainer {
-  display: block;
-}
-@media (min-width: 768px) {
-  .layoutContainer {
-    display: flex;
-  }
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 4rem;
+  padding: 3.5rem;
+  align-items: start;
 }
 
+/* 左側: 選手写真 */
 .photoContainer {
-  padding: 1.5rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-@media (min-width: 768px) {
-  .photoContainer {
-    width: 33.333333%;
-    padding: 2rem;
-  }
+  align-items: flex-start;
+  position: sticky;
+  top: 2rem;
 }
 
 .playerPhoto {
-  width: 12rem; /* 192px */
-  height: 12rem; /* 192px */
-  border-radius: 50%;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-  border: 8px solid var(--background);
+  width: 280px;
+  height: 360px;
+  border-radius: 20px;
   object-fit: cover;
-  background-color: var(--border-color);
-}
-@media (min-width: 768px) {
-  .playerPhoto {
-    width: 14rem; /* 224px */
-    height: 14rem; /* 224px */
-  }
+  border: 6px solid #ffffff;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2), 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #f5f5f5, #ffffff);
 }
 
-.infoContainer {
-  padding: 1.5rem;
-  border-top: 1px solid var(--border-color);
+.playerDetailContainer:hover .playerPhoto {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 80px rgba(102, 126, 234, 0.25), 0 0 1px rgba(0, 0, 0, 0.1);
 }
-@media (min-width: 768px) {
-  .infoContainer {
-    width: 66.666667%;
-    padding: 2rem;
-    border-top: none;
-    border-left: 1px solid var(--border-color);
-  }
+
+/* 右側: 情報エリア */
+.infoContainer {
+  padding: 0;
+}
+
+.playerPosition {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.7rem 1.6rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+}
+
+.playerPosition:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
 }
 
 .playerName {
-  font-size: 1.875rem; /* 30px */
-  font-weight: 700;
+  font-size: 3.2rem;
+  font-weight: 950;
   color: var(--foreground);
-  margin-bottom: 0.75rem;
-}
-@media (min-width: 768px) {
-  .playerName {
-    font-size: 2.25rem; /* 36px */
-  }
-}
-
-.countryLink {
-  display: inline-block;
-  background-color: var(--primary-color);
-  color: white;
-  font-size: 0.875rem; /* 14px */
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-bottom: 1rem;
-}
-.countryLink:hover {
-  background-color: var(--primary-color-light);
+  margin-bottom: 0.3rem;
+  line-height: 1.1;
+  letter-spacing: -1.2px;
+  background: linear-gradient(
+    135deg,
+    var(--foreground) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.statsGrid {
+.infoRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  font-size: 1.125rem; /* 18px */
-  margin-bottom: 1.5rem;
+  grid-template-columns: 160px 1fr;
+  gap: 2rem;
+  margin-bottom: 1.8rem;
+  padding: 1.6rem;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.03) 0%,
+    rgba(118, 75, 162, 0.02) 100%
+  );
+  border-radius: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  border-left: 4px solid #667eea;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  align-items: center;
 }
 
-.statLabel {
-  color: var(--foreground-muted);
-  display: block;
-  font-size: 0.875rem; /* 14px */
+.infoRow:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.08) 0%,
+    rgba(118, 75, 162, 0.05) 100%
+  );
+  border-color: rgba(102, 126, 234, 0.2);
+  transform: translateX(6px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.1);
 }
 
-.statValue {
-  font-weight: 600;
+.infoRow strong {
   color: var(--foreground);
+  font-weight: 700;
+  font-size: 1.05rem;
+  opacity: 0.9;
+}
+
+.infoRow span {
+  color: var(--foreground);
+  opacity: 0.85;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .sectionTitle {
-  font-size: 1.25rem; /* 20px */
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin: 3rem 0 1.8rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid rgba(102, 126, 234, 0.2);
   color: var(--foreground);
+  letter-spacing: -0.3px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1024px) {
+  .layoutContainer {
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    padding: 2.5rem;
+  }
+
+  .playerPhoto {
+    width: 260px;
+    height: 340px;
+  }
+
+  .playerName {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .infoRow {
+    gap: 1.5rem;
+    padding: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .playerDetailContainer {
+    border-radius: 16px;
+  }
+
+  .layoutContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .photoContainer {
+    position: static;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+
+  .playerPhoto {
+    width: 240px;
+    height: 320px;
+    border-width: 5px;
+    box-shadow: 0 16px 48px rgba(102, 126, 234, 0.15),
+      0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .playerName {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .playerPosition {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .infoRow {
+    grid-template-columns: 110px 1fr;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .infoRow strong {
+    font-size: 0.95rem;
+  }
+
+  .infoRow span {
+    font-size: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.4rem;
+    margin: 2.5rem 0 1.5rem 0;
+    padding-bottom: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .playerDetailContainer {
+    border-radius: 12px;
+  }
+
+  .layoutContainer {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  .playerPhoto {
+    width: 200px;
+    height: 280px;
+    border-width: 4px;
+    box-shadow: 0 12px 36px rgba(102, 126, 234, 0.12),
+      0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .playerName {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .playerPosition {
+    font-size: 0.85rem;
+    padding: 0.5rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .infoRow {
+    grid-template-columns: 90px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+  }
+
+  .infoRow strong {
+    font-size: 0.9rem;
+  }
+
+  .infoRow span {
+    font-size: 0.95rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.2rem;
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.6rem;
+  }
 }
