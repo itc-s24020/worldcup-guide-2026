@@ -54,13 +54,21 @@ export function AppImage({
   // ヒーロー画像は最高品質、それ以外は95
   const imageQuality = isHero ? 100 : quality;
 
-  // microCMS 画像 URL を超高解像度化
-  const optimizedSrc = displaySrc.includes("microcms-assets.io")
-    ? `${displaySrc}?auto=compress&fit=max&w=${Math.max(
+  // ★ microCMS 画像 URL を超高解像度化
+  let optimizedSrc = displaySrc;
+
+  if (displaySrc.includes("microcms-assets.io")) {
+    // ヒーロー画像用: 最高品質設定
+    if (isHero) {
+      optimizedSrc = `${displaySrc}?auto=compress&fit=max&w=2560&h=1440&q=100&sharp=3&fm=webp`;
+    } else {
+      // 通常画像用
+      optimizedSrc = `${displaySrc}?auto=compress&fit=max&w=${Math.max(
         width || 400,
-        2560
-      )}&h=${Math.max(height || 300, 1440)}&q=100&sharp=2&fm=webp`
-    : displaySrc;
+        1920
+      )}&h=${Math.max(height || 300, 1080)}&q=95&sharp=2&fm=webp`;
+    }
+  }
 
   return (
     <Image

@@ -33,7 +33,7 @@ const nextConfig = {
     // 1年間のキャッシュ（静的ファイル向け）
     minimumCacheTTL: 60 * 60 * 24 * 365,
 
-    // 不安定な画像ホストも許可
+    // Vercelの最適化を有効
     unoptimized: false,
   },
 };

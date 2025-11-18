@@ -31,13 +31,13 @@ export default async function CountryDetailPage(props: Props) {
 
       {/* ★ ヒーロー: 国旗とテキストが左下に固定 */}
       <div className={styles.heroContainer}>
-        {/* 背景画像 */}
+        {/* 背景画像 - 高品質設定 */}
         <div className={styles.heroImage}>
           <AppImage
             src={country.team_photo?.url || ""}
             alt={`${country.name} チーム写真`}
-            width={1400}
-            height={700}
+            width={1920}
+            height={1080}
             className={styles.heroImageTag}
             priority={true}
             quality={100}
