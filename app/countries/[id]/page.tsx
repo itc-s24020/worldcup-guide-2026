@@ -32,23 +32,32 @@ export default async function CountryDetailPage(props: Props) {
       <div className={styles.heroContainer}>
         <AppImage
           src={country.team_photo?.url || ""}
-          alt={`${country.name} チーム`}
-          width={1200}
-          height={630}
+          alt={`${country.name} チーム写真`}
+          width={1400}
+          height={700}
           className={styles.heroImage}
+          priority={true}
+          quality={100}
+          isHero={true}
         />
         <div className={styles.heroOverlay}>
-          <AppImage
-            src={country.flag?.url || ""}
-            alt={`${country.name} 国旗`}
-            width={120}
-            height={80}
-            className={styles.heroFlag}
-          />
-          <h1 className={styles.heroTitle}>{country.name}</h1>
-          <span className={styles.heroRank}>
-            FIFAランク: {country.fifa_rank}位
-          </span>
+          <div className={styles.heroContent}>
+            <AppImage
+              src={country.flag?.url || ""}
+              alt={`${country.name} 国旗`}
+              width={160}
+              height={100}
+              className={styles.heroFlag}
+              priority={true}
+              quality={95}
+            />
+            <div className={styles.heroInfo}>
+              <h1 className={styles.heroTitle}>{country.name}</h1>
+              <span className={styles.heroRank}>
+                🏆 FIFAランク: {country.fifa_rank}位
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 

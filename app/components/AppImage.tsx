@@ -10,10 +10,14 @@ type Props = {
   placeholderText?: string;
   width?: number;
   height?: number;
+  priority?: boolean;
+  quality?: number;
+  isHero?: boolean;
 };
 
 /**
  * Next.js Image を使用した最適化された画像コンポーネント
+ * 高品質表示とエラーハンドリングに対応
  */
 export function AppImage({
   src,
@@ -22,6 +26,9 @@ export function AppImage({
   placeholderText,
   width = 400,
   height = 300,
+  priority = false,
+  quality = 95,
+  isHero = false,
 }: Props) {
   const [imageSrc, setImageSrc] = useState(src || "");
   const [hasError, setHasError] = useState(false);
@@ -44,16 +51,38 @@ export function AppImage({
   // 実際の画像 URL または プレースホルダー
   const displaySrc = imageSrc || getPlaceholderUrl();
 
+  // ヒーロー画像は最高品質、それ以外は95
+  const imageQuality = isHero ? 100 : quality;
+
+  // microCMS 画像 URL を超高解像度化
+  const optimizedSrc = displaySrc.includes("microcms-assets.io")
+    ? `${displaySrc}?auto=compress&fit=max&w=${Math.max(
+        width || 400,
+        2560
+      )}&h=${Math.max(height || 300, 1440)}&q=100&sharp=2&fm=webp`
+    : displaySrc;
+
   return (
     <Image
-      src={displaySrc}
+      src={optimizedSrc}
       alt={alt}
       className={className}
       width={width}
       height={height}
       onError={handleError}
-      priority={false}
-      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      priority={priority}
+      quality={imageQuality}
+      sizes={
+        isHero
+          ? "(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+          : "(max-width: 640px) 100vw, (max-width: 1024px) 85vw, 90vw"
+      }
+      style={{
+        objectFit: "cover",
+        objectPosition: "center",
+      }}
+      placeholder="blur"
+      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8VAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwAA8A/9k="
     />
   );
 }
