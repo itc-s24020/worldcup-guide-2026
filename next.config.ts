@@ -27,7 +27,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 
     // 品質レベル設定（バランス重視）
-    qualities: [75, 85, 95],
+    // ★ 修正: 90 を追加
+    qualities: [75, 85, 90, 95],
 
     // キャッシュ設定（1年）
     minimumCacheTTL: 60 * 60 * 24 * 365,
@@ -38,7 +39,7 @@ const nextConfig = {
 
   // ★ 高速化設定
   compress: true,
-  swcMinify: true,
+  // ★ 削除: swcMinify は Next.js 16 では不要（デフォルトで SWC を使用）
   poweredByHeader: false,
 
   // React 最適化

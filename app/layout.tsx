@@ -25,13 +25,9 @@ function Header() {
   );
 }
 
-// フッターコンポーネント (ファイル内で定義)
+// ★ 修正: フッターコンポーネント - テキストを削除
 function Footer() {
-  return (
-    <footer className={styles.footer}>
-      <p>&copy; 2025 期末課題. All rights reserved.</p>
-    </footer>
-  );
+  return <footer className={styles.footer}>{/* ★ テキストを削除 */}</footer>;
 }
 
 // ルートレイアウト

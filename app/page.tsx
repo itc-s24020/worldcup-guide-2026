@@ -13,7 +13,20 @@ export default async function HomePage() {
 
   return (
     <div>
-      <h2 className={styles.pageTitle}>W杯注目国一覧</h2>
+      {/* ★ 改善された見出しセクション */}
+      <div className={styles.titleSection}>
+        <div className={styles.titleContent}>
+          <h1 className={styles.pageTitle}>
+            <span className={styles.titleEmoji}>⚽</span>
+            W杯注目国一覧
+          </h1>
+          <p className={styles.titleSubtitle}>
+            2026年FIFAワールドカップの注目国を、FIFAランキング順でご紹介します
+          </p>
+        </div>
+      </div>
+
+      {/* グリッドレイアウト */}
       <div className={styles.grid}>
         {countries.map((country) => (
           <Link

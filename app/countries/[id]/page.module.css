@@ -36,12 +36,11 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* ホバー時も背景画像は動かない */
 .heroContainer:hover .heroImageTag {
   transform: scale(1);
 }
 
-/* オーバーレイ: グラデーション背景のみ */
+/* オーバーレイ: グラデーション背景 */
 .heroOverlay {
   position: absolute;
   inset: 0;
@@ -118,9 +117,9 @@
   width: fit-content;
 }
 
-/* 共通セクション */
+/* ★ 共通セクション - バランス改善 */
 .section {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
   padding: 0 1.5rem;
   max-width: 1200px;
   margin-left: auto;
@@ -128,12 +127,24 @@
 }
 
 .sectionTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 3px solid rgba(128, 128, 128, 0.25);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid rgba(102, 126, 234, 0.3);
   color: var(--foreground);
+  letter-spacing: -0.3px;
+  position: relative;
+}
+
+.sectionTitle::before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
 }
 
 .noDataText {
@@ -141,6 +152,17 @@
   opacity: 0.7;
   font-style: italic;
   font-size: 1.05rem;
+  padding: 2rem;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+/* ★ プレイヤーグリッド - 改善 */
+.playerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.8rem;
 }
 
 /* タブレット対応 */
@@ -168,6 +190,22 @@
   .heroFlag {
     width: 100px;
     height: 62px;
+  }
+
+  .section {
+    padding: 0 1.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+  }
+
+  .playerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
   }
 }
 
@@ -202,12 +240,22 @@
 
   .section {
     padding: 0 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   .sectionTitle {
     font-size: 1.5rem;
     margin-bottom: 1.2rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .sectionTitle::before {
+    width: 50px;
+  }
+
+  .playerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.2rem;
   }
 }
 
@@ -242,9 +290,26 @@
 
   .section {
     padding: 0 0.75rem;
+    margin-bottom: 2rem;
   }
 
   .sectionTitle {
     font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .sectionTitle::before {
+    width: 40px;
+  }
+
+  .playerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1rem;
+  }
+
+  .noDataText {
+    padding: 1.5rem;
+    font-size: 0.95rem;
   }
 }
