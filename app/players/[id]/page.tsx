@@ -36,26 +36,32 @@ export default async function PlayerDetailPage(props: Props) {
       <div className={styles.playerDetailContainer}>
         <div className={countryStyles.section}>
           <div className={styles.layoutContainer}>
+            {/* ★ 左側: 選手写真 + 名前 */}
             <div className={styles.photoContainer}>
-              <AppImage
-                src={player.photo?.url || ""}
-                alt={`${player.name} 選手`}
-                width={224}
-                height={224}
-                className={styles.playerPhoto}
-              />
+              <div className={styles.photoWrapper}>
+                <AppImage
+                  src={player.photo?.url || ""}
+                  alt={`${player.name} 選手`}
+                  width={280}
+                  height={360}
+                  className={styles.playerPhoto}
+                  isPlayer={true}
+                />
+                {/* ★ 改善: 名前をセンター配置 */}
+                <div className={styles.photoNameOverlay}>
+                  <h2 className={styles.photoName}>{player.name}</h2>
+                </div>
+              </div>
             </div>
 
+            {/* ★ 右側: 情報 */}
             <div className={styles.infoContainer}>
               <span className={styles.playerPosition}>{player.position}</span>
-              <h1 className={styles.playerName}>{player.name}</h1>
 
               <div className={styles.infoRow}>
                 <strong>所属クラブ:</strong>
                 <span>{player.club}</span>
               </div>
-
-              {/* ★ 所属国を削除（以下のセクション全体を削除） */}
 
               <h3 className={styles.sectionTitle}>選手紹介</h3>
               <RichHtmlContent htmlContent={player.description} />

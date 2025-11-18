@@ -18,9 +18,11 @@ export function PlayerCard({ player }: { player: Player }) {
           src={player.photo?.url || ""}
           alt={`${player.name} 選手`}
           // 'width' と 'height' は <Image> に必須だが、CSSで制御される
-          width={200}
-          height={200}
+          width={300}
+          height={400}
           className={styles.playerCardImage}
+          // ★ 新規: 選手画像フラグを設定
+          isPlayer={true}
         />
       </div>
       <div className={styles.playerCardInfo}>
