@@ -1,6 +1,5 @@
 import { getPlayerDetail } from "@/lib/microcms";
 import type { Player } from "@/lib/microcms";
-import Link from "next/link";
 import styles from "./page.module.css";
 import countryStyles from "@/app/countries/[id]/page.module.css";
 import { AppImage } from "@/app/components/AppImage";
