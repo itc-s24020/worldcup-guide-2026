@@ -1,8 +1,8 @@
-# ⚽ W杯注目国・選手サイト
+# ⚽ W杯注目国・選手サイト　🔗 **[サイトを見る](https://worldcup-guide-2026-2yoo.vercel.app/)**
 
 2026年FIFAワールドカップの注目国と注目選手をピックアップし紹介するWebアプリケーション
 
-🔗 **[サイトを見る](https://worldcup-guide-2026-2yoo.vercel.app/)**
+
 
 ---
 
