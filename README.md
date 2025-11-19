@@ -34,7 +34,7 @@
 * **フレームワーク:** Next.js (App Router)
 * **言語:** TypeScript
 * **リンター:** ESLint
-* **スタイリング:** CSS Modules, `globals.css`
+* **スタイリング:** CSS Modules, globals.css
 * **データ管理:** microCMS
 * **ソース管理:** GitHub
 * **デプロイ:** Vercel
