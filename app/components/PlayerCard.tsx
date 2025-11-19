@@ -3,26 +3,30 @@
 import React from "react";
 import Link from "next/link";
 import type { Player } from "@/lib/microcms";
-// ★ 修正: 専用のCSSモジュールをインポート
 import styles from "./PlayerCard.module.css";
-import { AppImage } from "./AppImage";
+import { AppImage } from "@/app/components/AppImage";
 
 /**
  * 選手カードコンポーネント
  */
-export function PlayerCard({ player }: { player: Player }) {
+export function PlayerCard({
+  player,
+  priority = false,
+}: {
+  player: Player;
+  priority?: boolean;
+}) {
   return (
     <Link href={`/players/${player.id}`} className={styles.playerCard}>
       <div className={styles.playerCardImageContainer}>
         <AppImage
           src={player.photo?.url || ""}
           alt={`${player.name} 選手`}
-          // 'width' と 'height' は <Image> に必須だが、CSSで制御される
           width={300}
           height={400}
           className={styles.playerCardImage}
-          // ★ 新規: 選手画像フラグを設定
           isPlayer={true}
+          priority={priority}
         />
       </div>
       <div className={styles.playerCardInfo}>

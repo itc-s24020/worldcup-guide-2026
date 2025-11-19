@@ -46,6 +46,7 @@ export default async function PlayerDetailPage(props: Props) {
                   height={360}
                   className={styles.playerPhoto}
                   isPlayer={true}
+                  priority={true} // ★ 優先度設定
                 />
                 {/* ★ 改善: 名前をセンター配置 */}
                 <div className={styles.photoNameOverlay}>

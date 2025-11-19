@@ -1,19 +1,16 @@
 import Link from "next/link";
 import { getCountries } from "@/lib/microcms";
 import styles from "./page.module.css";
-// ★ インポート
 import { AppImage } from "@/app/components/AppImage";
 
-// メインのページコンポーネント (サーバーコンポーネント)
 export default async function HomePage() {
   const { contents: countries } = await getCountries({
     limit: 50,
-    orders: "fifa_rank", // FIFAランク順で並び替え
+    orders: "fifa_rank",
   });
 
   return (
     <div>
-      {/* ★ 改善された見出しセクション */}
       <div className={styles.titleSection}>
         <div className={styles.titleContent}>
           <h1 className={styles.pageTitle}>
@@ -26,34 +23,39 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* グリッドレイアウト */}
       <div className={styles.grid}>
-        {countries.map((country) => (
-          <Link
-            href={`/countries/${country.id}`}
-            key={country.id}
-            className={styles.card}
-          >
-            <div className={styles.cardImageContainer}>
-              <AppImage
-                src={country.flag?.url}
-                alt={`${country.name} 国旗`}
-                className={styles.cardImage}
-                placeholderText={country.name} // プレースホルダー用テキスト
-              />
-              <span className={styles.cardBadge}>{country.region}</span>
-            </div>
-            <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>{country.name}</h3>
-              <p className={styles.cardRank}>
-                FIFAランク:{" "}
-                <span className={styles.cardRankValue}>
-                  {country.fifa_rank}位
-                </span>
-              </p>
-            </div>
-          </Link>
-        ))}
+        {countries.map((country, index) => {
+          // ★ 最初の6個（3列×2行）だけpriorityを有効化
+          const shouldPrioritize = index < 6;
+
+          return (
+            <Link
+              href={`/countries/${country.id}`}
+              key={country.id}
+              className={styles.card}
+            >
+              <div className={styles.cardImageContainer}>
+                <AppImage
+                  src={country.flag?.url}
+                  alt={`${country.name} 国旗`}
+                  className={styles.cardImage}
+                  placeholderText={country.name}
+                  priority={shouldPrioritize} // ★ 条件付き優先度
+                />
+                <span className={styles.cardBadge}>{country.region}</span>
+              </div>
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{country.name}</h3>
+                <p className={styles.cardRank}>
+                  FIFAランク:{" "}
+                  <span className={styles.cardRankValue}>
+                    {country.fifa_rank}位
+                  </span>
+                </p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

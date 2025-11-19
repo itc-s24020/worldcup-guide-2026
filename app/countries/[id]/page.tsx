@@ -1,4 +1,4 @@
-import { getCountryDetail, getPlayers } from "@/lib/microcms";
+import { getCountryDetail, getPlayers, getCountries } from "@/lib/microcms";
 import type { Country, Player } from "@/lib/microcms";
 import styles from "./page.module.css";
 import { AppImage } from "@/app/components/AppImage";
@@ -11,6 +11,22 @@ import { PlayerCard } from "@/app/components/PlayerCard";
 type Props = {
   params: Promise<{ id: string }>;
 };
+
+// ★ 新規追加: 静的パラメータ生成
+export async function generateStaticParams() {
+  try {
+    const { contents: countries } = await getCountries({ limit: 100 });
+    return countries.map((country) => ({
+      id: country.id,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
+}
+
+// ★ 新規追加: ISR設定（60秒ごとに再生成）
+export const revalidate = 60;
 
 export default async function CountryDetailPage(props: Props) {
   const params = await props.params;
@@ -80,9 +96,17 @@ export default async function CountryDetailPage(props: Props) {
         <h3 className={styles.sectionTitle}>注目選手</h3>
         {players.length > 0 ? (
           <div className={playerCardStyles.playerGrid}>
-            {players.map((player: Player) => (
-              <PlayerCard key={player.id} player={player} />
-            ))}
+            {players.map((player: Player, index: number) => {
+              // ★ 最初の4個だけpriorityを有効化
+              const shouldPrioritize = index < 4;
+              return (
+                <PlayerCard
+                  key={player.id}
+                  player={player}
+                  priority={shouldPrioritize}
+                />
+              );
+            })}
           </div>
         ) : (
           <p className={styles.noDataText}>

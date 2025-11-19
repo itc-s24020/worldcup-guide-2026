@@ -27,7 +27,6 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 
     // 品質レベル設定（バランス重視）
-    // ★ 修正: 90 を追加
     qualities: [75, 85, 90, 95],
 
     // キャッシュ設定（1年）
@@ -37,9 +36,8 @@ const nextConfig = {
     unoptimized: false,
   },
 
-  // ★ 高速化設定
+  // ★ 修正: 高速化設定
   compress: true,
-  // ★ 削除: swcMinify は Next.js 16 では不要（デフォルトで SWC を使用）
   poweredByHeader: false,
 
   // React 最適化
@@ -51,9 +49,8 @@ const nextConfig = {
     pagesBufferLength: 5,
   },
 
-  // ビルド最適化
+  // ★ 修正: optimizeCssを削除（critterエラーの原因）
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ["lodash-es", "date-fns"],
   },
 };
