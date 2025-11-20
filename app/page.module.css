@@ -20,13 +20,13 @@
 }
 
 .titleContent {
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
   text-align: center;
 }
 
 .pageTitle {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 900;
   color: #ffffff;
   margin: 0 0 0.8rem 0;
@@ -36,11 +36,13 @@
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
+  flex-wrap: wrap;
 }
 
 .titleEmoji {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 3vw, 2.8rem);
   animation: bounce 2s infinite;
+  flex-shrink: 0;
 }
 
 @keyframes bounce {
@@ -54,7 +56,7 @@
 }
 
 .titleSubtitle {
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   color: rgba(255, 255, 255, 0.95);
   margin: 0;
   line-height: 1.6;
@@ -65,7 +67,6 @@
 /* ★ グリッドレイアウト - 18カ国に最適化 */
 .grid {
   display: grid;
-  /* 3列か6列で18カ国をきれいに配置 */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   max-width: 1400px;
@@ -202,15 +203,15 @@
   }
 
   .pageTitle {
-    font-size: 2.5rem;
+    font-size: clamp(1.6rem, 3.5vw, 2rem);
   }
 
   .titleEmoji {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 2.5vw, 2.2rem);
   }
 
   .titleSubtitle {
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
   }
 
   .grid {
@@ -229,15 +230,15 @@
   }
 
   .pageTitle {
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
   }
 
   .titleEmoji {
-    font-size: 2.2rem;
+    font-size: clamp(1.6rem, 2.2vw, 2rem);
   }
 
   .titleSubtitle {
-    font-size: 0.95rem;
+    font-size: clamp(0.8rem, 1.6vw, 0.9rem);
   }
 
   .grid {
@@ -268,16 +269,16 @@
   }
 
   .pageTitle {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
     gap: 0.5rem;
   }
 
   .titleEmoji {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
   }
 
   .titleSubtitle {
-    font-size: 0.9rem;
+    font-size: clamp(0.75rem, 1.4vw, 0.85rem);
     line-height: 1.5;
   }
 
