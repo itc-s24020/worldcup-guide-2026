@@ -20,6 +20,9 @@
   margin-bottom: 0.8em;
   color: var(--foreground);
   letter-spacing: -0.5px;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
 }
 
 .prose-custom h2 {
@@ -28,8 +31,9 @@
   margin-top: 1.8em;
   margin-bottom: 0.8em;
   color: var(--foreground);
-  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
-  padding-bottom: 0.5em;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
 }
 
 .prose-custom h3 {
@@ -37,9 +41,10 @@
   font-weight: 700;
   margin-top: 1.5em;
   margin-bottom: 0.75em;
-  padding-bottom: 0.3em;
-  border-bottom: 3px solid rgba(102, 126, 234, 0.3);
+  padding-bottom: 0 !important;
   color: var(--foreground);
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .prose-custom h4,
@@ -49,6 +54,8 @@
   color: var(--foreground);
   margin-top: 1.2em;
   margin-bottom: 0.6em;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .prose-custom ul,
@@ -78,7 +85,7 @@
 
 .prose-custom a {
   color: #667eea;
-  text-decoration: underline;
+  text-decoration: none !important;
   transition: all 0.2s ease;
   font-weight: 500;
   text-decoration-thickness: 2px;
@@ -87,7 +94,7 @@
 
 .prose-custom a:hover {
   color: #764ba2;
-  text-decoration-color: #764ba2;
+  text-decoration: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -215,4 +222,33 @@
   );
   padding: 0.2em 0.4em;
   border-radius: 4px;
+}
+
+/* ★ 追加: 全体的な下線削除 */
+a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+/* ★ 見出しの下線削除 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+/* ★ カード内のテキスト下線削除 */
+.cardTitle,
+.cardRank {
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
